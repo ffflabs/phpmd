@@ -47,7 +47,7 @@ jobs:
           php-version: ${{ env.php }}
           extensions: ${{ env.extensions }}
           coverage: none
-          tools: composer:v2 phpmd
+          tools: composer:v2, phpmd
 
       - name: "Install locked dependencies from composer.lock"
         run: "composer install --no-interaction --no-progress --no-suggest"
