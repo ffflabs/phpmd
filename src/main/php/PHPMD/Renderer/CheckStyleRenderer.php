@@ -50,7 +50,7 @@ class CheckStyleRenderer extends XMLRenderer
         $writer->write(\PHP_EOL);
 
         foreach ($report->getRuleViolations() as $violation) {
-            $fileName = \str_replace(__DIR__ . \DIRECTORY_SEPARATOR, '', $violation->getFileName());
+            $fileName = $violation->getFileName();
 
             if ($this->fileName !== $fileName) {
                 // Not first file
