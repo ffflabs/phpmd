@@ -1,0 +1,29 @@
+name: CheckStyle_Comments
+on: push
+
+jobs:
+  phpmd_checkstyle:
+    name: Run Lukas Bestle's Github Renderer
+
+    runs-on: ubuntu-latest
+    env:
+      php: "7.4"
+      extensions: mbstring, ctype, curl, gd, apcu, memcached
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup PHP environment
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ env.php }}
+          extensions: ${{ env.extensions }}
+          coverage: none
+          tools: composer:v2
+
+      - name: "Install locked dependencies from composer.lock"
+        run: "composer install --no-interaction --no-progress --no-suggest"
+
+      - name: Run PHPMD
+        run: src/bin/phpmd src/main/php/PHPMD/Renderer GitHubRenderer cleancode
